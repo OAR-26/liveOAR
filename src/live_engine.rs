@@ -310,15 +310,15 @@ impl LiveEngine {
             };
             let request_gen = self.refresh.request_gen.clone();
             thread::spawn(move || {
-                let res = get_current_jobs_for_period(start, end, &ssh_host, "./liveOAR/data/data.json");
+                let res = get_current_jobs_for_period(start, end, &ssh_host, "./data/data.json");
                 // Discard if a newer request has already been dispatched.
                 if *request_gen.lock().unwrap() != gen {
                     return;
                 }
                 if res {
-                    let jobs = get_jobs_from_json("./liveOAR/data/data.json");
-                    let resources = get_resources_from_json("./liveOAR/data/data.json");
-                    let dead_intervals = get_dead_intervals_from_json("./liveOAR/data/data.json");
+                    let jobs = get_jobs_from_json("./data/data.json");
+                    let resources = get_resources_from_json("./data/data.json");
+                    let dead_intervals = get_dead_intervals_from_json("./data/data.json");
                     jobs_sender.send(jobs).unwrap_or_else(|e| println!("Error while sending jobs: {}", e));
                     resources_sender.send(resources).unwrap_or_else(|e| println!("Error while sending resources: {}", e));
                     dead_intervals_sender.send(dead_intervals).unwrap_or_else(|e| println!("Error while sending dead intervals: {}", e));
@@ -390,11 +390,11 @@ impl LiveEngine {
                 let start = *start_date.lock().unwrap();
                 let end = *end_date.lock().unwrap();
 
-                let res = get_current_jobs_for_period(start, end, &ssh_host, "./liveOAR/data/data.json");
+                let res = get_current_jobs_for_period(start, end, &ssh_host, "./data/data.json");
                 if res {
-                    let jobs = get_jobs_from_json("./liveOAR/data/data.json");
-                    let resources = get_resources_from_json("./liveOAR/data/data.json");
-                    let dead_intervals = get_dead_intervals_from_json("./liveOAR/data/data.json");
+                    let jobs = get_jobs_from_json("./data/data.json");
+                    let resources = get_resources_from_json("./data/data.json");
+                    let dead_intervals = get_dead_intervals_from_json("./data/data.json");
 
                     jobs_sender.send(jobs).unwrap_or_else(|e| println!("Error while sending jobs: {}", e));
                     resources_sender.send(resources).unwrap_or_else(|e| println!("Error while sending resources: {}", e));

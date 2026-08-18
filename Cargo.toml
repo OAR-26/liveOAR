@@ -8,7 +8,7 @@ name = "liveOAR"
 path = "src/main.rs"
 
 [dependencies]
-ganttza = { path = "../ganttza" }
+ganttza = { git = "https://github.com/OAR-26/ganttza.git", branch = "main" }
 eframe = "0.30.0"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
